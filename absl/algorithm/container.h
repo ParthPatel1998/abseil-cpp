@@ -54,7 +54,6 @@
 #include "absl/meta/type_traits.h"
 
 namespace absl {
-
 namespace container_algorithm_internal {
 
 // NOTE: it is important to defer to ADL lookup for building with C++ modules,
@@ -108,7 +107,7 @@ ContainerIter<C> c_end(C& c) { return end(c); }
 // Container-based version of absl::linear_search() for performing a linear
 // search within a container.
 template <typename C, typename EqualityComparable>
-bool c_linear_search(const C& c, EqualityComparable&& value) {
+bool c_linear_search(const C &c, EqualityComparable &&value) {
   return linear_search(container_algorithm_internal::c_begin(c),
                        container_algorithm_internal::c_end(c),
                        std::forward<EqualityComparable>(value));
@@ -124,7 +123,7 @@ bool c_linear_search(const C& c, EqualityComparable&& value) {
 // return the number of elements within a container.
 template <typename C>
 container_algorithm_internal::ContainerDifferenceType<const C> c_distance(
-    const C& c) {
+    const C &c) {
   return std::distance(container_algorithm_internal::c_begin(c),
                        container_algorithm_internal::c_end(c));
 }
@@ -149,7 +148,7 @@ bool c_all_of(const C& c, Pred&& pred) {
 // Container-based version of the <algorithm> `std::any_of()` function to
 // test if any element in a container fulfills a condition.
 template <typename C, typename Pred>
-bool c_any_of(const C& c, Pred&& pred) {
+bool c_any_of(const C &c, Pred &&pred) {
   return std::any_of(container_algorithm_internal::c_begin(c),
                      container_algorithm_internal::c_end(c),
                      std::forward<Pred>(pred));
@@ -160,7 +159,7 @@ bool c_any_of(const C& c, Pred&& pred) {
 // Container-based version of the <algorithm> `std::none_of()` function to
 // test if no elements in a container fulfil a condition.
 template <typename C, typename Pred>
-bool c_none_of(const C& c, Pred&& pred) {
+bool c_none_of(const C &c, Pred &&pred) {
   return std::none_of(container_algorithm_internal::c_begin(c),
                       container_algorithm_internal::c_end(c),
                       std::forward<Pred>(pred));
@@ -171,7 +170,7 @@ bool c_none_of(const C& c, Pred&& pred) {
 // Container-based version of the <algorithm> `std::for_each()` function to
 // apply a function to a container's elements.
 template <typename C, typename Function>
-decay_t<Function> c_for_each(C&& c, Function&& f) {
+decay_t<Function> c_for_each(C &&c, Function &&f) {
   return std::for_each(container_algorithm_internal::c_begin(c),
                        container_algorithm_internal::c_end(c),
                        std::forward<Function>(f));
